@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,33 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return "aza";
+    return view('home');
+});
+
+//Authentication
+
+Route::get('/login',[AuthController::class,'loginG'])->name('login');
+Route::post('/login',[AuthController::class,'loginP'])->name('loginUser');
+
+Route::get('/register',[AuthController::class,'registerG']);
+Route::post('/register',[AuthController::class,'registerP'])->name('register');
+
+
+// Admin Routes
+Route::group(['middleware' => 'custom.admin'], function () {
+    Route::get('/admin/dashboard', function () {
+        return "admin dashboard";
+    });
+});
+
+// Editor Routes
+Route::group(['middleware' => 'custom.editor'], function () {
+    Route::get('/editor/dashboard', function () {
+        return "editor dashboard";
+    });
+});
+
+
+Route::get('/forbidden',function (){
+    return 'hhh';
 });
