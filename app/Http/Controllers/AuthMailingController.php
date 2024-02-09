@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 
 class
@@ -15,48 +18,72 @@ AuthMailingController extends Controller
     //
 
     public function showForgetPassword(){
-        return view('auth.forget');
+        return Inertia::render('auth/Forget');
     }
 
     public function ForgetPassword(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            // Handle validation failure
+            throw ValidationException::withMessages($validator->errors()->toArray());
+        }
+
         $user = User::where('email' , '=' , $request->email)->first();
         if(!empty($user)){
             $user->remember_token = Str::random(40);
-//            dd($user);
 
             $user->save();
             Mail::to($user->email)->send(new ForgetPasswordMail($user));
 
-            return redirect()->back()->with('message','Check your email for reseting password');
+//            return redirect()->back()->with('message','Check your email for reseting password');
+            return Inertia::render('auth/Forget' ,['success'=>'Check your email for reseting password']);
 
-        }else{
-            return redirect()->back()->with('error','Email Not found');
+        }else {
+            throw ValidationException::withMessages([
+                'message' => 'The email not found',
+            ])->redirectTo(route('forget-password'));
         }
+
+        return redirect(route('forget-password'));
     }
 
     public function showResetPassword(Request $request){
         $user = User::where('remember_token' , '=' , $request->token)->first();
         if(!empty($user)){
-            return view('auth.reset');
+            return Inertia::render('auth/Reset',['token'=>$request->token]);
         }else{
-            return redirect('forbidden');
+            return redirect(route('forbidden'));
         }
     }
 
-    public function ResetPassword($token,Request $request){
-        $data = $request->validate([
-            'password'=>['required','confirmed','min:5','max:255']
+    public function ResetPassword(Request $request){
+        $validator = Validator::make($request->all(), [
+            'password' => ['required','confirmed','min:5','max:255'],
         ]);
+
+        if ($validator->fails()) {
+            // Handle validation failure
+            throw ValidationException::withMessages($validator->errors()->toArray());
+        }
+
+        $token = $request->token;
 
         $user = User::where('remember_token' , '=' , $token)->first();
         if(!empty($user)){
-            $user->password = bcrypt($data['password']);
+            $user->password = bcrypt($request->password);
             $user->remember_token = Str::random(40);
             $user->save();
-            return redirect('login')->with('success','Password changed successfully');
+            return redirect(route('login'));
+
+
         }else{
-            return redirect('forbidden');
+            return redirect(route('forbidden'));
         }
+
 
     }
 }
