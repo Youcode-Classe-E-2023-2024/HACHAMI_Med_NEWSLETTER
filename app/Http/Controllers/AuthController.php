@@ -51,6 +51,15 @@ class AuthController extends Controller
 
         if (Auth::attempt($fields)) {
             $user = auth()->user();
+            if(isset($request->remember) && !empty($request->remember)){
+                setcookie("email",$fields['email'], time()+3600);
+                setcookie("password",$fields['password'], time()+3600);
+                setcookie("remember","on", time()+3600);
+
+            }else{
+                setcookie("email","", time()+3600);
+                setcookie("password","", time()+3600);
+            }
             if ($user->hasRole('admin')) {
                 return redirect('/admin/dashboard');
             } elseif ($user->hasRole('editor')) {
@@ -59,6 +68,16 @@ class AuthController extends Controller
         } else {
             return redirect('/login')->with('message', 'The credentials are not correct');
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 
 
