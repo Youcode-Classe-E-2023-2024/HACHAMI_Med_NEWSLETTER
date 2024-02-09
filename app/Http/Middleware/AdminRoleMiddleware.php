@@ -21,7 +21,6 @@ class AdminRoleMiddleware
             return $next($request);
         }
 
-        // If the user does not have the 'admin' role, redirect to a forbidden page
-        return redirect('/forbidden')->with('message', 'Unauthorized action.');
+        return redirect('/login');
     }
 }
