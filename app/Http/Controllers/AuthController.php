@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
+
 
 
 class AuthController extends Controller
@@ -13,60 +19,52 @@ class AuthController extends Controller
     //
 
     public function loginG(){
-        return view('auth.login');
+        $imgUrl =  asset('images/logo.png') ;
+        return Inertia::render('auth/Login' , [
+            'imgUrl'=>$imgUrl
+        ]);
     }
 
     public function registerG(){
-        return view('auth.register');
+        $imgUrl =  asset('images/logo.png') ;
+        return Inertia::render('auth/Register' , [
+            'imgUrl'=>$imgUrl
+        ]);
 
     }
 
-    public function registerP(Request $request)
+    public function registerP(RegisterRequest $request)
     {
-        $validate = $request->validate([
-            'name'=>['required','min:6','max:45'],
-            'email'=>['required','email',Rule::unique('users','email')],
-            'password'=>['required','confirmed','min:5','max:255']
-        ]);
-        echo $validate['password'];
+
+        $credentials = $request->validated();
 
 
         $user = User::create([
-           'name'=>$validate['name'],
-            'email'=>$validate['email'],
-            'password'=>bcrypt($validate['password'])
+           'name'=>$credentials['name'],
+            'email'=>$credentials['email'],
+            'password'=>bcrypt($credentials['password'])
         ]);
 
-        $user->addRole('admin');
-        return redirect('login');
+        $user->addRole('member');
+        return redirect(route('login'));
     }
 
-    public function loginP(Request $request){
-        $fields = $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string'
-        ]);
+    public function loginP(LoginRequest $request){
+
+        $credentials = $request->validated();
 
 
-
-        if (Auth::attempt($fields)) {
+        if (Auth::attempt($credentials)) {
             $user = auth()->user();
-            if(isset($request->remember) && !empty($request->remember)){
-                setcookie("email",$fields['email'], time()+3600);
-                setcookie("password",$fields['password'], time()+3600);
-                setcookie("remember","on", time()+3600);
-
-            }else{
-                setcookie("email","", time()+3600);
-                setcookie("password","", time()+3600);
-            }
             if ($user->hasRole('admin')) {
-                return redirect('/admin/dashboard');
+                return redirect(route('admin_dashboard'));
             } elseif ($user->hasRole('editor')) {
-                return redirect('/editor/dashboard');
+                return redirect(route('editor_dashboard'));
             }
         } else {
-            return redirect('/login')->with('message', 'The credentials are not correct');
+            throw ValidationException::withMessages([
+                'message' => 'The credentials are not correct',
+            ])->redirectTo(route('login'));
         }
     }
 
@@ -76,8 +74,8 @@ class AuthController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        return redirect(route('logout'));
 
-        return redirect('/login');
     }
 
 
