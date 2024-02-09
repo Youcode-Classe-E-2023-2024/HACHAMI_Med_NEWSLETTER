@@ -61,6 +61,10 @@
                                     </div>
                                     <input type="password"  placeholder="****" name="password_confirmation"  class="border rounded-lg py-3 px-3 bg-black border-indigo-600 placeholder-white-500 text-white">
                                     <button  class="border border-indigo-600 bg-black text-white rounded-lg py-3 font-semibold" routerLink="/dashboard">Subscribe</button>
+                                    <div class="text-gray-400">
+                                        <span>I already Have An account</span>
+                                        <a href="{{route('login')}}" class="underline">Sign In</a>
+                                    </div>
                                 </form>
                             </div>
                         </div>
