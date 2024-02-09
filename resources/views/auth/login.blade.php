@@ -35,13 +35,16 @@
                                     @if(session('message'))
                                     <label class="font-semibold text-lg text-red-900 " >{{ session('message') }}</label>
                                     @endif
+                                    @if(session('success'))
+                                        <label class="font-semibold text-lg text-green-900 " >{{ session('success') }}</label>
+                                    @endif
                                     <div class="flex flex-col">
                                         <label class="font-bold text-lg text-white " >Email</label>
                                         @error('password')
                                         <label class="font-semibold text-lg text-red-900 " >{{$message}}</label>
                                         @enderror
                                     </div>
-                                    <input type="text" name="email"  placeholder="Enter the full name" class="border rounded-lg py-3 px-3 mt-4 bg-black border-indigo-600 placeholder-white-500 text-white">
+                                    <input type="text" name="email" @if(isset($_COOKIE['email'])) value="{{$_COOKIE['email']}}" @endif  placeholder="Enter the full name" class="border rounded-lg py-3 px-3 mt-4 bg-black border-indigo-600 placeholder-white-500 text-white">
 
                                     <div class="flex flex-col">
                                         <label class="font-bold text-lg text-white">Password</label>
@@ -49,8 +52,21 @@
                                         <label class="font-semibold text-lg text-red-900 " >{{$message}}</label>
                                         @enderror
                                     </div>
-                                    <input type="password" name="password" formControlName="pin" placeholder="****" class="border rounded-lg py-3 px-3 bg-black border-indigo-600 placeholder-white-500 text-white">
-                                    <button  class="border border-indigo-600 bg-black text-white rounded-lg py-3 font-semibold" routerLink="/dashboard">Login</button>
+                                    <input type="password" name="password" @if(isset($_COOKIE['password'])) value="{{$_COOKIE['password']}}" @endif formControlName="pin" placeholder="****" class="border rounded-lg py-3 px-3 bg-black border-indigo-600 placeholder-white-500 text-white">
+                                    <button  class="border border-indigo-600 bg-black text-white rounded-lg py-3 font-semibold" >Login</button>
+                                    <div class="flex items-center">
+                                        <input  id="checked-checkbox" @if(isset($_COOKIE['password'])) checked @endif type="checkbox" name="remember"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="checked-checkbox" class="ms-2 text-md font-semiboldbold text-white">Remember me</label>
+                                    </div>
+                                    <div class="text-gray-400">
+                                        <span>don't have account ?</span>
+                                        <a href="{{route('register')}}" class="underline">Sign Up</a>
+
+                                    </div>
+                                    <div class="text-gray-400 text-center">
+                                        <a href="{{route('forget-password')}}" class="underline">Forget Password</a>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>
