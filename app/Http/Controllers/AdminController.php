@@ -10,7 +10,18 @@ class AdminController extends Controller
     //
 
     public function index(){
-        return Inertia::render('admin/Dashboard');
+        return Inertia::render('admin/Layout', [
+            'Route'=>'dashboard',
+            'pageName'=>'Main Dashboard',
+        ]);
+    }
+
+
+    public function about(){
+        return Inertia::render('admin/Layout', [
+            'Route'=>'about',
+            'pageName'=>'About',
+        ]);
     }
 
 }
