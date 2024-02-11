@@ -24,6 +24,9 @@ use Inertia\Inertia;
 Route::get('/', function() {
     return redirect()->route('login');
 });
+Route::get('/newsletter' , function (){
+    return Inertia::render('Home');
+});
 Route::get('/login',[AuthController::class,'loginG'])->name('login');
 Route::post('/login',[AuthController::class,'loginP'])->name('loginUser');
 
@@ -47,6 +50,8 @@ Route::group(['middleware' => 'web'], function () {
 
 
             Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin_dashboard');
+            Route::get('/admin/about', [AdminController::class, 'about']);
+
         });
 
         // Editor routes

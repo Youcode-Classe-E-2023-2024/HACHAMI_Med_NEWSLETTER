@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base {
+    html {
+        font-family: 'DM Sans', sans-serif !important;
+        font-feature-settings: 'kern' !important;
+        -webkit-font-smoothing: antialiased;
+        letter-spacing: -0.5px;
+    }
+}
+
+input.defaultCheckbox::before {
+    /*content: url(../src/assets/svg/checked.svg);*/
+    color: white;
+    opacity: 0;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0px);
+}
+
+input:checked.defaultCheckbox::before {
+    opacity: 1;
+}
+
+:root {
+    --bg-color-light: #ffffff;
+    --text-color-light: #333333;
+
+    --bg-color-dark: #121212;
+    --text-color-dark: #ffffff;
+}
+
+body {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+body.dark-mode {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
