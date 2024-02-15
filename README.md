@@ -1,67 +1,86 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projet de Plateforme Web - Résumé
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Contexte
 
-## About Laravel
+Notre client, une entreprise en pleine croissance dans le secteur de la communication et du marketing, a identifié un besoin crucial de centraliser et rationaliser ses opérations en ligne. Dans cette optique, l'entreprise a entrepris le développement d'une plateforme web interne avec des fonctionnalités avancées visant à améliorer la communication, la gestion de l'information et la collaboration au sein de son équipe.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Stack Technologique
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Le développement de cette plateforme a été réalisé en utilisant les technologies suivantes :
+- Laravel (Backend)
+- React (Frontend)
+- Inertia.js(Frontend)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Fonctionnalités Clés
 
-## Learning Laravel
+### Gestion de Newsletter (Spatie Media)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Mise en place d'une gestion avancée des newsletters.
+- Possibilité d'ajouter des modèles de newsletter avec des médias spécifiques tels que des images, des vidéos (mp4), et des documents PDF.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Authentification avec Gestion des Rôles (Policies et Guards)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Utilisation du package Laratrust pour la gestion des rôles, des permissions, et des équipes.
+- Authentification sécurisée avec des politiques (Policies) et des gardes (Guards) pour assurer un contrôle d'accès précis.
 
-## Laravel Sponsors
+### Fonctionnalités Forgot Password et Remember Me
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Implémentation des fonctionnalités Forgot Password et Remember Me pour faciliter la gestion des identifiants et des sessions utilisateur.
 
-### Premium Partners
+### Soft Delete
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- Intégration de la fonctionnalité Soft Delete permettant à l'administrateur d'archiver les modèles de newsletter plutôt que de les supprimer définitivement.
 
-## Contributing
+### Middleware
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Utilisation de middlewares pour vérifier les rôles des utilisateurs et les rediriger vers des tableaux de bord spécifiques en fonction de leurs autorisations.
 
-## Code of Conduct
+### Modélisation avec 3 Rôles
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Conception d'une base de données permettant de prendre en charge trois rôles distincts : Administrateur, Rédacteur, Membre.
+- Chaque rôle dispose de tables et de relations spécifiques, assurant une séparation claire des données et des responsabilités au sein de la plateforme.
 
-## Security Vulnerabilities
+## Screens à Présenter
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+En tant que développeur, je prévois de créer et de présenter des captures d'écran pour les différentes parties de l'application, notamment :
+- **Admin Dashboard**
+  ![Admin Dashboard](./Docs/admin_dash.png)
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-"# HACHAMI_Med_NEWSLETTER" 
+- **Editor Dashboard**
+  ![editor Dashboard](./Docs/editor_dash.png)
+
+- **Client Page**
+  ![client page](./Docs/client.png)
+
+
+Ces écrans illustreront visuellement l'interface utilisateur et les fonctionnalités spécifiques de chaque tableau de bord et de la page client.
+
+## Getting Started
+
+These instructions will help you set up and run the project on your local machine.
+
+### Prerequisites
+
+- PHP
+- Composer
+- Node.js
+- npm
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/Youcode-Classe-E-2023-2024/HACHAMI_Med_NEWSLETTER.git
+cd HACHAMI_Med_NEWSLETTER
+```
+```bash
+npm install
+composer install
+```
+```bash
+php artisan migrate
+php artisan serve
+npm run dev
+```
+
+
