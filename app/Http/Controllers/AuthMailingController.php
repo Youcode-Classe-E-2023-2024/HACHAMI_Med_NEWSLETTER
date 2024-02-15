@@ -86,4 +86,6 @@ AuthMailingController extends Controller
 
 
     }
+
+
 }
