@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,7 +12,6 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
-
 
 
 class AuthController extends Controller
@@ -74,8 +74,28 @@ class AuthController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect(route('logout'));
+        return redirect('/home');
 
+    }
+
+    public function subscribe(Request $request){
+
+        $validated = $request->validate([
+            'email'=>'required|email|unique:users'
+        ]);
+
+
+
+        $user = User::create([
+            'name'=>'member',
+            'email'=>$validated['email'],
+            'password'=>'password',
+        ]);
+
+
+        $user->addRole('member');
+
+        return redirect(route('home'));
     }
 
 
