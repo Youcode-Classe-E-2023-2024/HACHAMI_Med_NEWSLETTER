@@ -3,7 +3,6 @@ import Main from "./components/Main.jsx";
 import TemplateForm from "./components/TemplateForm.jsx";
 import React from "react";
 import Dashboard from "../admin/Dashboard.jsx";
-import About from "../admin/About.jsx";
 
 
 export default function Layout({Route,pageName , templates ,success , errors ,file  }){

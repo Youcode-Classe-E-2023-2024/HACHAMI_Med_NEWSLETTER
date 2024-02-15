@@ -67,11 +67,11 @@ export default function Dashboard({members, memberCount , templateCount}) {
                             subtitle={templateCount}
                         />
 
-                        <Widget
-                            icon={<MdDashboard className="h-6 w-6" />}
-                            title={"Your Balance"}
-                            subtitle={"$1,000"}
-                        />
+                        {/*<Widget*/}
+                        {/*    icon={<MdDashboard className="h-6 w-6" />}*/}
+                        {/*    title={"Your Balance"}*/}
+                        {/*    subtitle={"$1,000"}*/}
+                        {/*/>*/}
 
                     </div>
                     <div className=" table-container" style={{ marginTop:'70px'}} >
