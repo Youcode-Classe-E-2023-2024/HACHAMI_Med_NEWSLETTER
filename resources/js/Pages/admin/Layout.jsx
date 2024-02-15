@@ -3,10 +3,10 @@ import Navbar from './components/navbar'
 import Sidebar from './components/sidebar'
 import Footer from './components/footer/Footer.jsx'
 import Dashboard from "./Dashboard.jsx";
-import About from "./About.jsx";
+import Templates from "./Template.jsx";
 
 
-const Layout = ({ children , Route , pageName } , props) => {
+const Layout = ({ children , Route , pageName , members  , memberCount,templateCount , templates} , props) => {
     const { ...rest } = props;
     const [open, setOpen] = React.useState(true);
     // const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
@@ -19,8 +19,8 @@ const Layout = ({ children , Route , pageName } , props) => {
     }, []);
 
     const routeComponents = {
-        dashboard: <Dashboard />,
-        about: <About />,
+        dashboard: <Dashboard members={members} memberCount={memberCount} templateCount={templateCount} />,
+        templates: <Templates templates={templates} />,
         // Add more routes as needed
     };
 

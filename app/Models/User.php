@@ -25,6 +25,10 @@ class User extends AuthenticatableUser implements LaratrustUser
         'password',
     ];
 
+
+    protected $guarded = ['id', 'password'];
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -44,4 +48,6 @@ class User extends AuthenticatableUser implements LaratrustUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
 }

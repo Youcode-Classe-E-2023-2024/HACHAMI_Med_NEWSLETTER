@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { router , usePage , Link  } from '@inertiajs/react'
 import { InertiaLink } from '@inertiajs/inertia-react';
+import { Inertia } from '@inertiajs/inertia'
 import DesktopIllustration from '../../../public/images/newsletter/illustration-sign-up-desktop.svg';
 import MobileIllustration from "../../../public/images/newsletter/illustration-sign-up-mobile.svg";
 
 import '../../../public/css/variables.css'
 import '../../../public/css/utils.css'
 
-import { Inertia } from '@inertiajs/inertia'
 const Button = ({ label, handleTest }) => {
     return (
         <button
@@ -20,7 +20,8 @@ const Button = ({ label, handleTest }) => {
     );
 };
 
-export default function Home( ) {
+export default function Home({errors} ) {
+
     const [email, setEmail] = useState("");
     const [isValidEmail, setIsValidEmail] = useState(true);
 
@@ -37,6 +38,16 @@ export default function Home( ) {
             event.preventDefault();
         }
     };
+
+    const handleSubmit = (ev)=>{
+        ev.preventDefault();
+        if(isValidEmail){
+            Inertia.post('/subscribe',{
+                email:email
+            });
+        }
+        console.log(errors)
+    }
 
     return (
         <section className="flex flex-col justify-center items-center text-[color:var(--secondary-color)] md:bg-[color:var(--tertiary-color)] md:h-screen">
@@ -72,7 +83,7 @@ export default function Home( ) {
                         <li className="mb-[4rem]">lorem</li>
                     </ul>
 
-                    <form className="flex flex-col">
+                    <form className="flex flex-col" onSubmit={handleSubmit}>
                         <label
                             htmlFor="email"
                             className="text-[12px] font-bold pb-[0.8rem] flex justify-between"
@@ -96,12 +107,10 @@ export default function Home( ) {
                             onChange={handleEmailChange}
                         />
 
-                        <Link to={isValidEmail ? `/success?email=${email}` : "#"}>
                             <Button
                                 label="Subscribe to monthly newsletter"
                                 handleTest={handleTest}
                             />
-                        </Link>
                     </form>
                 </div>
             </div>

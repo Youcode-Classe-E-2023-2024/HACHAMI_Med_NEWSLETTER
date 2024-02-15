@@ -7,6 +7,11 @@ import Links from "./components/Links";
 import SidebarCard from "../sidebar/componentsrtl/SidebarCard.jsx";
 import { InertiaLink } from '@inertiajs/inertia-react';
 import DashIcon from "../icons/DashIcon.jsx";
+import { IoDocuments } from "react-icons/io5";
+
+
+import {MdBarChart} from "react-icons/md";
+import React from "react";
 
 
 
@@ -71,7 +76,7 @@ const Sidebar = ({ open, onClose , route }) => {
 
               </div>
           </InertiaLink>
-          <InertiaLink href="/admin/about">
+          <InertiaLink href="/admin/templates">
               <div className="relative mb-3 flex hover:cursor-pointer">
                   <li
                       className="my-[3px] flex cursor-pointer items-center px-8"
@@ -83,19 +88,19 @@ const Sidebar = ({ open, onClose , route }) => {
                             : "font-medium text-gray-600"
                     }`}
                 >
-                  <DashIcon />{" "}
+                  <IoDocuments className="h-7 w-7" />{" "}
                 </span>
                       <p
                           className={`leading-1 ml-4 flex ${
-                              activeRoute('about') === true
+                              activeRoute('templates') === true
                                   ? "font-bold text-navy-700 dark:text-white"
                                   : "font-medium text-gray-600"
                           }`}
                       >
-                          About
+                          Templates
                       </p>
                   </li>
-                  {activeRoute('about') ? (
+                  {activeRoute('templates') ? (
                       <div class="absolute right-0 top-px h-9 w-1 rounded-lg bg-brand-500 dark:bg-brand-400" />
                   ) : null}
 

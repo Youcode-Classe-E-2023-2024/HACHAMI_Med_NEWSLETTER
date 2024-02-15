@@ -12,10 +12,16 @@ import {
   IoMdInformationCircleOutline,
 } from "react-icons/io";
 import avatar from "../../../../../../public/images/avatars/avatar4.png";
+import {Inertia} from "@inertiajs/inertia";
 
 const Navbar = (props) => {
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
+
+    const logOut = async (e)=>{
+        e.preventDefault();
+        Inertia.post('/logout');
+    }
 
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
@@ -204,7 +210,8 @@ const Navbar = (props) => {
                   Newsletter Settings
                 </a>
                 <a
-                  href=" "
+                    onClick={logOut}
+                    href=" "
                   className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"
                 >
                   Log Out
